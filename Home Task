@@ -1,0 +1,102 @@
+CREATE DATABASE IMDB 
+CREATE TABLE Movies (
+    MovieId INT PRIMARY KEY,
+    MovieName VARCHAR(255),
+    IMDBraiting FLOAT,
+    GenreID INT,
+    DirectorID INT,
+    ActorName VARCHAR (100),
+    Duration INT
+)
+
+CREATE TABLE Directors (
+    DirectorID INT PRIMARY KEY,
+    DirectorName VARCHAR(100)
+)
+
+  
+CREATE TABLE Actors (
+    ActorID INT PRIMARY KEY,
+    ActorName VARCHAR(100)
+)
+
+
+CREATE TABLE Genre 
+(
+    GenreID INT PRIMARY KEY,
+    GenreName VARCHAR(100)
+)
+
+INSERT INTO Directors (DirectorID, DirectorName) VALUES
+(1, 'Frank Darabont'), -- The Shawshank Redemption
+(2, 'Francis Ford Coppola'), -- The Godfather
+(3, 'Todd Phillips'), -- Joker
+(4, 'Steven Spielberg'), -- Schindler's List
+(5, 'Peter Jackson') -- Lord of the Rings
+
+INSERT INTO Actors (ActorID, ActorName) VALUES
+(1, 'Tim Robbins'), -- The Shawshank Redemption
+(2, 'Morgan Freeman'), -- The Shawshank Redemption
+(3, 'Marlon Brando'), -- The Godfather
+(4, 'Al Pacino'), -- The Godfather
+(5, 'Joaquin Phoenix'), -- Joker
+(6, 'Liam Neeson'), -- Schindler's List
+(7, 'Ben Kingsley'), -- Schindler's List
+(8, 'Elijah Wood'), -- Lord of the Rings
+(9, 'Ian McKellen') -- Lord of the Rings
+
+INSERT INTO Movies (MovieId, MovieName, IMDBRating, GenreID, DirectorID, ActorID, Duration) VALUES
+(1, 'The Shawshank Redemption', 9.3, 1, 1, 1, 142),
+(2, 'The Godfather', 9.2, 1, 2, 3, 175),
+(3, 'Joker', 8.5, 2, 3, 5, 122),
+(4, 'Schindler''s List', 8.9, 3, 4, 6, 195),
+(5, 'The Lord of the Rings: The Fellowship of the Ring', 8.8, 4, 5, 8, 178)
+
+INSERT INTO Genres (GenreID, GenreName) VALUES
+(1, 'Drama'),
+(2, 'Thriller'),
+(3, 'History'),
+(4, 'Fantasy')
+
+
+SELECT
+m.MovieName,
+m.IMDBraiting,
+g.GenreName,
+d.DirectorName,
+a.ActorName 
+FROM
+Movies m 
+JOIN
+Directors d ON m.DirectorID=d.DirectorID
+JOIN
+Genres g ON m.GenreID=g.GenreID
+JOIN 
+Actors a ON m.ActorName= a.ActorName
+WHERE
+m.IMDBraiting > 6
+
+SELECT
+m.MovieName,
+m.IMDBraiting,
+g.GenreName
+FROM
+Movies m 
+JOIN
+Genres g ON m.GenreID=g.GenreID
+WHERE
+g.GenreName Like 'a'
+
+SELECT
+m.MovieName,
+m.IMDBraiting,
+m.Duration,
+g.GenreName
+FROM
+Movies m
+JOIN
+Genres g ON m.GenreID = g.GenreID
+WHERE
+LEN( m.MovieName ) > 10
+AND RIGHT(m.MovieName, 1)='t'
+
